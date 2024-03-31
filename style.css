@@ -160,6 +160,35 @@ ul li {
     gap: 2rem;
 }
 
+#MeusProjetos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background-color: var(--cor4);
+}
+
+#projects {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#projects a {
+    text-decoration: none;
+    color: var(--cor6);
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#projects a:hover {
+    color: #fff;
+}
+
 #eu .eu-title {
     display: flex;
     gap: 3rem;
@@ -174,7 +203,7 @@ ul li {
 }
 
 footer {
-    background-color: var(--cor4);
+    background-color: var(--cor3);
     align-items: center;
     justify-content: space-around;
     padding: 4rem;
