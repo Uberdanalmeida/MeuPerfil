@@ -1,7 +1,6 @@
-# Projeto Profile Uberdan Almeida
-<h1 text-aling="center">Projeto Profile Uberdan Almeida</h1>
+# **Projeto Profile Uberdan Almeida** 
 
-![profile](./imagens/profile.png)
+![profile](./imagens/uber-foto.jpeg)
 
 ## 🚀 Tecnologias
 
@@ -14,9 +13,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-O Projeto se refere ao meu Portifolio.
+O Projeto se refere ao meu Portifolio, onde falo sobre meus conhecimentos em tecnologias, e sobre minha pessoa.
 
-- [Acesse o projeto finalizado, online](https://github.com/Uberdanalmeida/MeuPerfil)
+- [Acesse o projeto finalizado, online](https://Uberdanalmeida.github.io/MeuPerfil)
 
 Desenvolvido por Uberdan Almeida.
 
