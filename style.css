@@ -160,35 +160,6 @@ ul li {
     gap: 2rem;
 }
 
-#MeusProjetos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    background-color: var(--cor4);
-}
-
-#projects {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    padding: 2rem;
-    justify-content: center;
-    align-items: center;
-}
-
-#projects a {
-    text-decoration: none;
-    color: var(--cor6);
-    cursor: pointer;
-    font-size: 20px;
-}
-
-#projects a:hover {
-    color: #fff;
-}
-
 #eu .eu-title {
     display: flex;
     gap: 3rem;
@@ -225,4 +196,46 @@ footer {
 #fim {
     display: flex;
     gap: 2rem;
+}
+
+/* ... outros estilos ... */
+
+#MeusProjetos #projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cria um layout responsivo em grid */
+    gap: 20px;
+    padding: 20px;
+    justify-items: center; /* Centraliza os itens no grid */
+}
+
+.projeto-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-decoration: none;
+    color: var(--cor6);
+    transition: transform 0.3s ease-in-out;
+}
+
+.projeto-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Ou outra cor de sua preferência ao passar o mouse */
+    background-color: var(--cor3); /* Ou outra cor de sua preferência ao passar o mouse */
+}
+
+.projeto-imagem {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.projeto-nome {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 0;
 }
