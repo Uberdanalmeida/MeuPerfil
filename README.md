@@ -1,6 +1,6 @@
 # **Projeto Profile Uberdan Almeida** 
 
-![profile](./imagens/uber-foto.jpeg)
+![profile](./imagens-projetos/MeuPerfil.png)
 
 ## 🚀 Tecnologias
 
