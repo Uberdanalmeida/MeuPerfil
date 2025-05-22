@@ -197,9 +197,7 @@ footer {
     display: flex;
     gap: 2rem;
 }
-
 /* ... outros estilos ... */
-
 #MeusProjetos #projects {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cria um layout responsivo em grid */
