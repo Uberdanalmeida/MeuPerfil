@@ -114,6 +114,10 @@ h1 {
     letter-spacing: 5px;
 }
 
+h2 {
+    text-align: center;
+}
+
 strong {
     color: #70e3ea;
 }
@@ -196,6 +200,10 @@ footer {
 #fim {
     display: flex;
     gap: 2rem;
+}
+
+#MeusProjetos {
+    background-color: #89a7b1;
 }
 /* ... outros estilos ... */
 #MeusProjetos #projects {
