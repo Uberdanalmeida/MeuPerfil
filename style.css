@@ -164,6 +164,11 @@ ul li {
     gap: 2rem;
 }
 
+#carregar {
+    text-align: center;
+    padding-top: 20px;
+}
+
 #eu .eu-title {
     display: flex;
     gap: 3rem;
