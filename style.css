@@ -20,6 +20,8 @@ body {
 
 header {
     display: flex;
+    position: fixed;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
