@@ -252,3 +252,21 @@ footer {
     text-align: center;
     margin-top: 0;
 }
+
+/* Estilo para o botão "Mostrar Mais Projetos" */
+.show-more-btn {
+    display: block; /* Para o botão ocupar sua própria linha */
+    margin: 20px auto; /* Centraliza o botão e adiciona margem */
+    padding: 10px 20px;
+    background-color: var(--cor3); /* Cor de fundo do botão */
+    color: var(--cor1); /* Cor do texto do botão */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.show-more-btn:hover {
+    background-color: #555; /* Cor de fundo ao passar o mouse */
+}

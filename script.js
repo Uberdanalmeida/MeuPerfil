@@ -1,50 +1,74 @@
 function MeusProjetos() {
     const GitHub = 'https://api.github.com/users/Uberdanalmeida/repos';
-    let carregamento = document.getElementById('carregar');
-    let mostrar = document.getElementById('projects');
-    mostrar.innerHTML = ''; // Limpa a mensagem de "Carregando Projetos" e qualquer conteúdo anterior
+    const carregamento = document.getElementById('carregar');
+    const projectsContainer = document.getElementById('projects');
+    projectsContainer.innerHTML = ''; // Limpa a mensagem de "Carregando Projetos" e qualquer conteúdo anterior
 
     fetch(GitHub, {
-        method: 'Get'
+        method: 'GET'
     })
     .then((response) => response.json())
     .then((data) => {
-        carregamento.style.display = 'none';
-        // Verifica se 'data' é um array
+        carregamento.style.display = 'none'; // Esconde a mensagem de carregamento
+
         if (Array.isArray(data)) {
-            data.forEach(repo => {
-                // Cria o link para o repositório
-                const link = document.createElement('a');
-                link.href = repo.html_url;
-                link.target = '_blank';
-                link.classList.add('projeto-item'); // Adiciona uma classe para estilização
+            const allProjects = data; // Todos os projetos
+            const initialProjectsToShow = 6;
+            let projectsShown = 0; // Contador de projetos exibidos
 
-                // Cria a imagem do projeto
-                const imagem = document.createElement('img');
-                imagem.src = `imagens-projetos/${repo.name}.png`; // Ajuste a extensão conforme necessário
-                imagem.alt = `Imagem do projeto ${repo.name}`;
-                imagem.classList.add('projeto-imagem');
+            // Função para exibir os projetos
+            const displayProjects = (projectsToDisplay) => {
+                projectsToDisplay.forEach(repo => {
+                    const link = document.createElement('a');
+                    link.href = repo.html_url;
+                    link.target = '_blank';
+                    link.classList.add('projeto-item');
 
-                // Cria um elemento para o nome do projeto (opcional)
-                const nomeProjeto = document.createElement('h3');
-                nomeProjeto.textContent = repo.name;
-                nomeProjeto.classList.add('projeto-nome');
+                    const imagem = document.createElement('img');
+                    imagem.src = `imagens-projetos/${repo.name}.png`;
+                    imagem.alt = `Imagem do projeto ${repo.name}`;
+                    imagem.classList.add('projeto-imagem');
 
-                // Adiciona a imagem e o nome ao link
-                link.appendChild(imagem);
-                link.appendChild(nomeProjeto);
+                    const nomeProjeto = document.createElement('h3');
+                    nomeProjeto.textContent = repo.name;
+                    nomeProjeto.classList.add('projeto-nome');
 
-                // Adiciona o link ao container de projetos
-                mostrar.appendChild(link);
-            });
+                    link.appendChild(imagem);
+                    link.appendChild(nomeProjeto);
+
+                    projectsContainer.appendChild(link);
+                });
+            };
+
+            // Exibe os primeiros 6 projetos
+            displayProjects(allProjects.slice(0, initialProjectsToShow));
+            projectsShown = initialProjectsToShow;
+
+            // Cria o botão "Mostrar Mais" se houver mais projetos
+            if (allProjects.length > initialProjectsToShow) {
+                const showMoreButton = document.createElement('button');
+                showMoreButton.textContent = 'Mostrar Mais Projetos';
+                showMoreButton.classList.add('show-more-btn');
+                
+                // Adiciona o botão ao final da seção de projetos (ou onde desejar)
+                document.getElementById('MeusProjetos').appendChild(showMoreButton);
+
+                showMoreButton.addEventListener('click', () => {
+                    // Exibe o restante dos projetos
+                    displayProjects(allProjects.slice(projectsShown));
+                    showMoreButton.style.display = 'none'; // Esconde o botão após exibir todos
+                });
+            }
+
         } else {
             console.log("Erro: os dados retornados não são um array.");
-            mostrar.textContent = "Erro ao carregar os projetos.";
+            projectsContainer.textContent = "Erro ao carregar os projetos.";
         }
     })
     .catch((e) => {
         console.log(e);
-        mostrar.textContent = "Erro ao conectar com o GitHub.";
+        carregamento.style.display = 'none'; // Esconde a mensagem de carregamento em caso de erro
+        projectsContainer.textContent = "Erro ao conectar com o GitHub.";
     });
 }
 
