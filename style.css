@@ -31,9 +31,8 @@ html {
     scroll-behavior: smooth;
 }
 
-/* 3. Melhoria no Header para garantir que ele não suma e tenha profundidade */
 header {
-    height: 80px; /* Altura fixa para facilitar o cálculo do padding no main */
+    height: 80px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,12 +42,26 @@ header {
     left: 0;
     width: 100%;
     backdrop-filter: blur(12px);
-    background: rgba(10, 10, 12, 0.85); /* Leve transparência sofisticada */
+    background: rgba(10, 10, 12, 0.85);
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Isso impede que a imagem saia para fora */
+.logo {
+    height: 100%; /* Ocupa a altura do header */
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    max-height: 50px; /* Define um tamanho máximo fixo para a logo */
+    width: auto;      /* Mantém a proporção */
+    object-fit: contain;
+}
+
 nav a {
+    position: relative;
     color: var(--text-dim);
     text-decoration: none;
     margin: 0 1.5rem;
@@ -56,7 +69,24 @@ nav a {
     transition: var(--transition);
 }
 
-nav a:hover { color: var(--primary); }
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary);
+    transition: var(--transition);
+}
+
+nav a:hover { 
+    color: var(--primary); 
+}
+
+nav a:hover::after {
+    width: 100%;
+}
 
 .btn-git {
     border: 1px solid var(--primary);
@@ -67,7 +97,9 @@ nav a:hover { color: var(--primary); }
     transition: var(--transition);
 }
 
-.btn-git:hover { background: var(--primary); color: #000; }
+.btn-git:hover { 
+    background: var(--primary); color: #000; 
+}
 
 /* Hero Section */
 .hero {
