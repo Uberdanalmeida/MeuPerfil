@@ -1,75 +1,73 @@
-function MeusProjetos() {
-    const GitHub = 'https://api.github.com/users/Uberdanalmeida/repos';
-    const carregamento = document.getElementById('carregar');
-    const projectsContainer = document.getElementById('projects');
-    projectsContainer.innerHTML = ''; // Limpa a mensagem de "Carregando Projetos" e qualquer conteúdo anterior
+const GITHUB_URL = 'https://api.github.com/users/Uberdanalmeida/repos';
+let todosOsProjetos = [];
+let projetosExibidos = 6;
 
-    fetch(GitHub, {
-        method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        carregamento.style.display = 'none'; // Esconde a mensagem de carregamento
+async function fetchProjects() {
+    const container = document.getElementById('projects');
+    const loader = document.getElementById('loader');
+    const section = document.getElementById('MeusProjetos');
 
-        if (Array.isArray(data)) {
-            const allProjects = data; // Todos os projetos
-            const initialProjectsToShow = 6;
-            let projectsShown = 0; // Contador de projetos exibidos
+    try {
+        const response = await fetch(GITHUB_URL);
+        todosOsProjetos = await response.json();
+        
+        loader.style.display = 'none';
+        renderProjetos();
 
-            // Função para exibir os projetos
-            const displayProjects = (projectsToDisplay) => {
-                projectsToDisplay.forEach(repo => {
-                    const link = document.createElement('a');
-                    link.href = repo.html_url;
-                    link.target = '_blank';
-                    link.classList.add('projeto-item');
-
-                    const imagem = document.createElement('img');
-                    imagem.src = `imagens-projetos/${repo.name}.png`;
-                    imagem.alt = `Imagem do projeto ${repo.name}`;
-                    imagem.classList.add('projeto-imagem');
-
-                    const nomeProjeto = document.createElement('h3');
-                    nomeProjeto.textContent = repo.name;
-                    nomeProjeto.classList.add('projeto-nome');
-
-                    link.appendChild(imagem);
-                    link.appendChild(nomeProjeto);
-
-                    projectsContainer.appendChild(link);
-                });
+        // Se houver mais de 6 projetos, cria o botão
+        if (todosOsProjetos.length > projetosExibidos) {
+            const btnVerMais = document.createElement('button');
+            btnVerMais.id = 'btn-ver-mais';
+            btnVerMais.className = 'btn-secondary'; // Usa a classe de estilo que já criamos
+            btnVerMais.style.display = 'block';
+            btnVerMais.style.margin = '2rem auto';
+            btnVerMais.textContent = 'Ver Todos os Projetos';
+            
+            btnVerMais.onclick = () => {
+                projetosExibidos = todosOsProjetos.length; // Mostra tudo
+                renderProjetos();
+                btnVerMais.style.display = 'none'; // Esconde o botão após clicar
             };
-
-            // Exibe os primeiros 6 projetos
-            displayProjects(allProjects.slice(0, initialProjectsToShow));
-            projectsShown = initialProjectsToShow;
-
-            // Cria o botão "Mostrar Mais" se houver mais projetos
-            if (allProjects.length > initialProjectsToShow) {
-                const showMoreButton = document.createElement('button');
-                showMoreButton.textContent = 'Mostrar Mais Projetos';
-                showMoreButton.classList.add('show-more-btn');
-                
-                // Adiciona o botão ao final da seção de projetos (ou onde desejar)
-                document.getElementById('MeusProjetos').appendChild(showMoreButton);
-
-                showMoreButton.addEventListener('click', () => {
-                    // Exibe o restante dos projetos
-                    displayProjects(allProjects.slice(projectsShown));
-                    showMoreButton.style.display = 'none'; // Esconde o botão após exibir todos
-                });
-            }
-
-        } else {
-            console.log("Erro: os dados retornados não são um array.");
-            projectsContainer.textContent = "Erro ao carregar os projetos.";
+            
+            section.appendChild(btnVerMais);
         }
-    })
-    .catch((e) => {
-        console.log(e);
-        carregamento.style.display = 'none'; // Esconde a mensagem de carregamento em caso de erro
-        projectsContainer.textContent = "Erro ao conectar com o GitHub.";
-    });
+    } catch (error) {
+        loader.textContent = "Erro ao carregar projetos.";
+        console.error(error);
+    }
 }
 
-MeusProjetos();
+function renderProjetos() {
+    const container = document.getElementById('projects');
+    container.innerHTML = ''; 
+
+    todosOsProjetos.slice(0, projetosExibidos).forEach(repo => {
+        const card = `
+            <a href="${repo.html_url}" target="_blank" class="projeto-item">
+                <img src="https://raw.githubusercontent.com/Uberdanalmeida/${repo.name}/main/thumbnail.png" 
+                     onerror="this.src='https://via.placeholder.com/400x250/16161a/00f2ff?text=Projeto+Front-End'" 
+                     class="projeto-imagem">
+                <div class="projeto-info">
+                    <h3 style="color: var(--text); margin-bottom: 5px;">${repo.name.replace(/-/g, ' ')}</h3>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 10px;">
+                        ${repo.description || 'Projeto desenvolvido com foco em performance e UI.'}
+                    </p>
+                    <span class="projeto-link">Explorar Código →</span>
+                </div>
+            </a>
+        `;
+        container.innerHTML += card;
+    });
+}
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
+        header.style.background = 'rgba(10, 10, 12, 0.95)';
+    } else {
+        header.style.boxShadow = 'none';
+        header.style.background = 'rgba(10, 10, 12, 0.85)';
+    }
+});
+
+fetchProjects();
