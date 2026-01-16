@@ -9,7 +9,11 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
     background-color: var(--bg);
@@ -19,15 +23,12 @@ body {
     overflow-x: hidden;
 }
 
-/* Header */
-/* 1. Adiciona um espaçamento no topo do main igual à altura do header */
 main {
-    padding-top: 80px; /* Ajuste esse valor conforme a altura do seu header */
+    padding-top: 80px; 
 }
 
-/* 2. Garante que o scroll para as seções não fique "escondido" atrás do header */
 html {
-    scroll-padding-top: 90px; /* Quando clicar no menu, a seção para no lugar certo */
+    scroll-padding-top: 90px; 
     scroll-behavior: smooth;
 }
 
@@ -47,7 +48,6 @@ header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Isso impede que a imagem saia para fora */
 .logo {
     height: 100%; /* Ocupa a altura do header */
     display: flex;
@@ -120,17 +120,28 @@ nav a:hover::after {
     font-weight: 600;
 }
 
-.hero h1 { font-size: 4.5rem; margin: 1rem 0; line-height: 1.1; }
-.hero h1 span { color: var(--primary); }
-.hero p { color: var(--text-dim); max-width: 500px; font-size: 1.1rem; margin-bottom: 2rem; }
+.hero h1 { 
+    font-size: 4.5rem; 
+    margin: 1rem 0; 
+    line-height: 1.1; 
+}
+
+.hero h1 span { 
+    color: var(--primary); 
+}
+
+.hero p { 
+    color: var(--text-dim); 
+    max-width: 500px; 
+    font-size: 1.1rem; 
+    margin-bottom: 2rem; 
+}
 
 .hero-img img {
-    width: 380px;
-    height: 380px;
+    width: 350px;
+    height: 350px;
     object-fit: cover;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    animation: morph 8s ease-in-out infinite;
-    border: 4px solid var(--primary);
+    border-radius: 50%;
 }
 
 /* Estilização da Grid de Skills (Tecnologias) */
@@ -288,12 +299,30 @@ footer {
     letter-spacing: 2px;
 }
 
-.projeto-imagem { width: 100%; height: 200px; object-fit: cover; }
-.projeto-nome { padding: 1.5rem; color: var(--text); text-align: center; }
+.projeto-imagem { 
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+}
+
+.projeto-nome { 
+    padding: 1.5rem; 
+    color: var(--text); 
+    text-align: center; }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .hero { flex-direction: column-reverse; text-align: center; justify-content: center; }
-    .hero h1 { font-size: 3rem; }
-    nav { display: none; }
+    .hero { 
+        flex-direction: column-reverse; 
+        text-align: center; 
+        justify-content: center; 
+    }
+
+    .hero h1 { 
+        font-size: 3rem; 
+    }
+
+    nav { 
+        display: none; 
+    }
 }
