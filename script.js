@@ -38,27 +38,42 @@ async function fetchProjects() {
 }
 
 function renderProjetos() {
-    const container = document.getElementById('projects');
-    container.innerHTML = ''; 
+  const container = document.getElementById("projects");
+  container.innerHTML = "";
 
-    todosOsProjetos.slice(0, projetosExibidos).forEach(repo => {
-        const card = `
-            <a href="${repo.html_url}" target="_blank" class="projeto-item">
-                <img src="https://raw.githubusercontent.com/Uberdanalmeida/${repo.name}/main/thumbnail.png" 
-                     onerror="this.src='https://via.placeholder.com/400x250/16161a/00f2ff?text=Projeto+Front-End'" 
-                     class="projeto-imagem">
-                <div class="projeto-info">
-                    <h3 style="color: var(--text); margin-bottom: 5px;">${repo.name.replace(/-/g, ' ')}</h3>
-                    <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 10px;">
-                        ${repo.description || 'Projeto desenvolvido com foco em performance e UI.'}
-                    </p>
-                    <span class="projeto-link">Explorar Código →</span>
-                </div>
-            </a>
-        `;
-        container.innerHTML += card;
-    });
+  todosOsProjetos.slice(0, projetosExibidos).forEach((repo) => {
+    // 1. Tenta pegar a imagem padrão do GitHub
+    let imageUrl = `https://raw.githubusercontent.com/Uberdanalmeida/${repo.name}/main/thumbnail.png`;
+
+    // 2. Se o projeto tiver um site (homepage), usamos um serviço de captura de tela automático como plano B
+    const fallbackImage = repo.homepage 
+      ? `https://api.microlink.io/?url=${encodeURIComponent(repo.homepage)}&screenshot=true&embed=screenshot.url`
+      : `https://placehold.co/600x400/16161a/00f2ff?text=${repo.name.replace(/-/g, "+")}`;
+
+    const card = `
+        <a href="${repo.html_url}" target="_blank" class="projeto-item">
+            <div class="projeto-img-container" style="background: #16161a; height: 200px; overflow: hidden;">
+                <img src="${imageUrl}" 
+                     onerror="this.onerror=null; this.src='${fallbackImage}'" 
+                     class="projeto-imagem" 
+                     alt="${repo.name}"
+                     style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="projeto-info">
+                <h3 style="color: var(--text); margin-bottom: 5px; text-transform: capitalize;">
+                    ${repo.name.replace(/-/g, " ")}
+                </h3>
+                <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 10px; height: 40px; overflow: hidden;">
+                    ${repo.description || "Projeto Front-End desenvolvido por Uberdan Almeida."}
+                </p>
+                <span class="projeto-link">Explorar Código →</span>
+            </div>
+        </a>
+    `;
+    container.innerHTML += card;
+  });
 }
+
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (window.scrollY > 50) {
